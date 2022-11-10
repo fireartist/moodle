@@ -160,6 +160,8 @@ if ($datarecord && confirm_sesskey()) {
             if (!empty($datarecord->saveandadd)) {
                 // User has clicked "Save and add another". Reset all of the fields.
                 $datarecord = null;
+            } elseif (!empty($redirectbackto)) {
+                redirect(urldecode($redirectbackto));
             } else {
                 $viewurl = new moodle_url('/mod/data/view.php', [
                     'd' => $data->id,
@@ -182,6 +184,7 @@ echo '<div>';
 echo '<input name="d" value="'.$data->id.'" type="hidden" />';
 echo '<input name="rid" value="'.$rid.'" type="hidden" />';
 echo '<input name="sesskey" value="'.sesskey().'" type="hidden" />';
+echo '<input name="backto" value="'.$redirectbackto.'" type="hidden" />';
 echo $OUTPUT->box_start('generalbox boxaligncenter boxwidthwide');
 
 if (!$rid){
